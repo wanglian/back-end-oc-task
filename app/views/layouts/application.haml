@@ -1,0 +1,26 @@
+!!!
+%html{prefix: 'og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#', dir: 'ltr', lang: 'en' }
+  %head
+    %script{ src: "https://code.jquery.com/jquery-3.3.1.slim.min.js", integrity: "sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E=", crossorigin: "anonymous" }
+    %title Maze
+    = csrf_meta_tags
+    = action_cable_meta_tag
+
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+
+
+  %body
+    =link_to 'Home', '/'
+    %users-auth
+      -if current_user
+        .auth-item
+          = link_to 'Logout', '/users/sign_out'
+      - else
+        .auth-item
+          = link_to 'Login', '/users/sign_in'
+        .auth-item
+          = link_to 'Signup', '/users/sign_in'
+
+
+    = yield

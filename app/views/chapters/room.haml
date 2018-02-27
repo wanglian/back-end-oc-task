@@ -1,0 +1,26 @@
+-if @room.final
+  %br
+  =image_tag @room.thumbnail
+  %br
+  .final_room Congratulations!!!
+
+-else
+  %p You are in room
+  %h2.room_number=@room.number
+  =image_tag @room.thumbnail
+
+
+
+.available_rooms
+  -@available_rooms.each do |room|
+    =link_to "/maze/room/#{room.number}" do
+      .next_room{ class: "#{room.final ? 'final' : ''}" }
+        -if room.final
+          %b.next_room_number
+            =room.number
+            %br
+            .win Final
+        -else
+          %b.next_room_number=room.number
+          =image_tag room.thumbnail
+

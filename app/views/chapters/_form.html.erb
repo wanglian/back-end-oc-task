@@ -1,0 +1,34 @@
+<%= form_with(model: chapter, local: true) do |form| %>
+  <% if chapter.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(chapter.errors.count, "error") %> prohibited this chapter from being saved:</h2>
+
+      <ul>
+      <% chapter.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :number %>
+    <%= form.number_field :number, id: :chapter_number, value: "#{chapter.number ? chapter.number : ( @active_chapter.try(:number).to_i + 1) }" %>
+  </div>
+
+  <%if params[:action] == 'new'%>
+    <div class="field">
+      <%= form.label :rooms_count %>
+      <%= form.number_field :rooms_count, id: :chapter_rooms_count %>
+    </div>
+  <%end%>
+
+  <div class="field">
+    <%= form.label :active %>
+    <%= form.check_box :active, id: :chapter_active %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
