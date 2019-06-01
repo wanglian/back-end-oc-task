@@ -84,16 +84,16 @@ class Maze
     # there is at least one way out
     last = keys.last
     level = 0
-    rooms = [keys.first]
+    room_numbers = [keys.first]
     while level < size
       tmp = []
-      rooms.each do |room|
-        edges[room].each do |child|
+      room_numbers.each do |room_number|
+        edges[room_number].each do |child|
           return true if child == last
           tmp << child
         end
       end
-      rooms = tmp.uniq
+      room_numbers = tmp.uniq
       level += 1
     end
     false
@@ -102,35 +102,35 @@ class Maze
   private
   def self.random_route
     route = []
-    room_no = @@size
-    while room_no > 1
-      route.unshift room_no
-      room_no = Random.rand(room_no - 1) + 1 # range 1..room_no-1
+    room_number = @@size
+    while room_number > 1
+      route.unshift room_number
+      room_number = Random.rand(room_number - 1) + 1 # range 1..room_number-1
     end
     route.unshift 1
     route
   end
 
   def self.random_edges(route)
-    route_no = route.shift
-    edges = (1..@@size).map do |n|
-      children = []
-      if route_no == n
-        route_no = route.first
-        children << route.shift if route_no
+    route_room_number = route.shift
+    (1..@@size).map do |room_number|
+      room_children = []
+      if route_room_number == room_number
+        route_room_number = route.first
+        room_children << route.shift if route_room_number
       end
-      if @@size > 2 && n < @@size
+      if @@size > 2 && room_number < @@size
         MAX_CHILDREN.times do
           loop do
             r = Random.rand(@@size - 1) + 1
-            unless r == n
-              children << r
+            unless r == room_number
+              room_children << r
               break
             end
           end
         end
       end
-      [n, children.uniq]
+      [room_number, room_children.uniq]
     end.to_h
   end
 
