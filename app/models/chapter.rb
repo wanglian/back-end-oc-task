@@ -28,18 +28,16 @@ class Chapter < ApplicationRecord
     maze = Maze.generate self.rooms_count
 
     # generate rooms
+    rooms_hash = {}
     maze.keys.each do |room_number|
       final = room_number == self.rooms_count
-      self.rooms.create number: room_number, final: final
+      rooms_hash[room_number] = self.rooms.create number: room_number, final: final
     end
 
     # generate edges
     maze.each do |r_number, values|
       values.each do |r_child|
-        room_parent = Room.active(self.id).where(number: r_number).first
-        room_child  = Room.active(self.id).where(number: r_child).first
-
-        self.edges.create room_parent_id: room_parent.id, room_child_id: room_child.id
+        self.edges.create parent_room: rooms_hash[r_number], child_room: rooms_hash[r_child]
       end
     end
   end
