@@ -32,11 +32,6 @@ class ChaptersController < ApplicationController
   # POST /chapters
   # POST /chapters.json
   def create
-    active_chapter = Chapter.active
-    if active_chapter
-      active_chapter.update_column :active, false
-    end
-
     @chapter = Chapter.new(chapter_params)
 
     respond_to do |format|

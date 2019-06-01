@@ -5,20 +5,23 @@ class Chapter < ApplicationRecord
   has_many :rooms, dependent: :delete_all
   has_many :edges, dependent: :delete_all
 
-  validate :uniq_active, :check_rooms_count
+  validate :uniq_active
+  validate :check_rooms_count, on: :create
 
-  before_create :set_active
+  before_create :ensure_uniq_active
   after_create :generate_rooms_and_edges
-
-  scope :active, -> { where(active: true).first }
 
   def self.active
     where(active: true).last
   end
 
   private
-  def set_active
+  def ensure_uniq_active
     self.active = true
+    active_chapter = Chapter.active
+    if active_chapter
+      active_chapter.update_column :active, false
+    end
   end
 
   def generate_rooms_and_edges
@@ -42,7 +45,7 @@ class Chapter < ApplicationRecord
   end
 
   def uniq_active
-    if self.active && Chapter.where(active: true).first
+    if self.active && Chapter.active
       errors.add(:active, 'only 1 active chapter may exists in the system')
     end
   end
