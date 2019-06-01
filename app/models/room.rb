@@ -38,7 +38,7 @@ class Room < ApplicationRecord
   end
 
   def available_rooms
-    Room.where( id: self.edges.pluck(:room_child_id) )
+    Room.where( id: self.edges.pluck(:room_child_id) ).includes(:door)
   end
 
 end
