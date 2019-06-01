@@ -26,7 +26,7 @@ class Room < ApplicationRecord
     door  = if self.final
               Door.where(final: true).first
             else
-              door_id = ( Door.all_ids - used_door_ids ).sample
+              door_id = ( Door.where(final: false).all_ids - used_door_ids ).sample
               Door.where(id: door_id).try(:first)
             end
 
