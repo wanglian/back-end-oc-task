@@ -18,6 +18,8 @@ GEM
       rack-test (>= 0.6.3)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.0.2)
+    actionpack-page_caching (1.1.1)
+      actionpack (>= 4.0.0, < 6)
     actionview (5.2.2.1)
       activesupport (= 5.2.2.1)
       builder (~> 3.1)
@@ -137,6 +139,8 @@ GEM
       nokogiri (>= 1.6)
     rails-html-sanitizer (1.0.4)
       loofah (~> 2.2, >= 2.2.2)
+    rails-observers (0.1.5)
+      activemodel (>= 4.0)
     railties (5.2.2.1)
       actionpack (= 5.2.2.1)
       activesupport (= 5.2.2.1)
@@ -206,6 +210,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  actionpack-page_caching
   actionview (>= 5.2.2.1)
   activejob (>= 5.2.1.1)
   activestorage (>= 5.2.1.1)
@@ -221,6 +226,7 @@ DEPENDENCIES
   pg
   puma (~> 3.7)
   rails (= 5.2.2.1)
+  rails-observers
   railties (>= 5.2.2.1)
   sass-rails
   selenium-webdriver
@@ -232,4 +238,4 @@ DEPENDENCIES
   web-console (>= 3.3.0)
 
 BUNDLED WITH
-   1.16.6
+   1.17.3

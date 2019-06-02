@@ -28,6 +28,10 @@ gem 'haml'
 
 gem 'carrierwave'
 gem 'mini_magick'
+
+gem "actionpack-page_caching"
+gem 'rails-observers'
+
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
