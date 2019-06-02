@@ -83,14 +83,16 @@ class Maze
 
     # there is at least one way out
     last = keys.last
-    level = 0
+    level = 1
+    cache = Array.new size, false
     room_numbers = [keys.first]
     while level < size
       tmp = []
       room_numbers.each do |room_number|
+        cache[room_number] = true
         edges[room_number].each do |child|
           return true if child == last
-          tmp << child
+          tmp << child unless cache[child]
         end
       end
       room_numbers = tmp.uniq
