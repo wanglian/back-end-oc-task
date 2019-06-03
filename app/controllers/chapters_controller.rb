@@ -1,7 +1,7 @@
 class ChaptersController < ApplicationController
-  before_action :set_chapter        , only: [:show, :edit, :update, :destroy]
+  before_action :set_chapter, only: [:show, :edit, :update, :destroy]
   caches_page :room
-  cache_sweeper :chapter_sweeper, only: [ :create ]
+  cache_sweeper :chapter_sweeper, only: [:create]
 
   def room
     room_number       = params[:room_number].to_i
